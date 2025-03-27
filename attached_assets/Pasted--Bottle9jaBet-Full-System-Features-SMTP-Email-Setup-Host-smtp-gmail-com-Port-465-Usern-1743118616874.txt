@@ -1,0 +1,102 @@
+
+Bottle9jaBet - Full System Features
+
+SMTP Email Setup
+	•	Host: smtp.gmail.com
+	•	Port: 465
+	•	Username: exesoftware010@gmail.com
+	•	Password: lmgz etkx gude udar
+	•	Used for:
+	•	Signup/Login email confirmation
+	•	Deposit email confirmation
+	•	Withdrawal email confirmation
+	•	Bank account added/deleted email confirmation
+	•	Card added email confirmation
+	•	2-Step Verification email confirmation
+
+User Authentication & Security
+	•	Signup/Login with email confirmation (via SMTP)
+	•	2-Step Verification:
+	•	Users can enable 2-Step Verification via email
+	•	System generates a 6-digit code and sends it via SMTP
+	•	If the user enters the correct code, display “2-Step Verification Added”
+	•	Notify users via email that 2-Step Verification has been enabled
+	•	On every login, send a 6-digit email confirmation code
+	•	If the code matches, log in the user automatically
+	•	Secure Login System:
+	•	Match login credentials with database records
+	•	If correct, allow instant login
+	•	Auto-lock accounts after multiple failed attempts
+
+Banking & Payment System (Monnify API Integration)
+
+Deposit System
+	•	Users can deposit funds using Bank Transfer, Card, or USSD
+	•	Auto-fetch user’s bank name after entering an account number (via Monnify API)
+	•	Payment Process:
+	•	User selects deposit method
+	•	Monnify API processes the payment
+	•	If successful, update user’s balance automatically
+	•	Send email confirmation of deposit
+
+Card Management (Monnify API)
+	•	Users can add a new card by verifying a 7-digit OTP sent via Monnify API
+	•	OTP is only required for first-time card addition
+	•	If the correct OTP is entered, link the card to the user’s account
+	•	If the user later funds their wallet using the same card, no OTP is required
+	•	Monnify API confirms the deposit and updates the user’s balance
+
+Withdrawal System
+	•	Users can withdraw directly to their linked bank account
+	•	Monnify API processes instant withdrawals
+	•	Send email confirmation after a successful withdrawal
+
+“Spin the Bottle” Betting System
+
+Game Interface
+	•	Rotating Wheel: Divided into eight numbered sections (2 to 20)
+	•	Bottle at the center pointing toward a specific section
+	•	Play Button below the wheel to start spinning
+	•	Home Icon for quick navigation
+	•	Color Scheme: Brown & Gold
+
+Game Mechanics
+	•	Users pick one or two numbers before the countdown expires
+	•	Countdown Timer: 30 seconds per round
+	•	Minimum Stake: ₦500 | Maximum Stake: ₦10 million
+	•	Winning Logic:
+	•	Bottle spins for 5 seconds
+	•	Lands on a randomly generated number
+	•	If user’s chosen number matches, they win
+	•	If they lose, display “Try Again”
+	•	Show recent bets and winnings in real-time
+
+Live Betting Feed
+	•	Show real-time updates of users winning/losing bets
+	•	Example:
+	•	UserXXXX0562: Stake ₦30,000 → Win: ₦200,000
+	•	UserXXXX8901: Stake ₦10,000 → Lost
+
+Additional Features
+	•	Responsive UI with smooth animations
+	•	Deposit & Withdrawal History (Downloadable reports)
+	•	Session Management: Auto logout after inactivity
+	•	Real-time Notifications for transactions
+
+
+Multiple sport images template in the home page design well structured sport center and automatically add pes 3 sounds so user will not be bored 
+
+
+Allow user to adjust the sound volume or off the sound 
+
+
+Monnify Api details 
+
+
+API Key: MK_TEST_PUMJ0V3WZL
+Secret Key: 7ULH6NT8YKJ5SR1S2M62ZJ61PRW58NNC
+Base URL: https://sandbox.monnify.com
+Wallet Account Number: 9393579338
+Contract Code: 2022829732
+Payment Methods: CARD,USSD,DIRECT DEBIT, ACCOUNT TRANSFER,
+
