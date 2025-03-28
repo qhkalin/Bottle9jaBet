@@ -280,6 +280,22 @@ const emailTemplates = {
   }),
 };
 
+// Helper function to apply template with parameters
+function applyTemplate(templateFn: Function, params: any[]): { subject: string, html: string } {
+  switch (params.length) {
+    case 1:
+      return templateFn(params[0]);
+    case 2:
+      return templateFn(params[0], params[1]);
+    case 3:
+      return templateFn(params[0], params[1], params[2]);
+    case 4:
+      return templateFn(params[0], params[1], params[2], params[3]);
+    default:
+      throw new Error(`Unsupported parameter count: ${params.length}`);
+  }
+}
+
 export async function sendEmail(to: string, templateName: keyof typeof emailTemplates, data: any[]): Promise<boolean> {
   try {
     const template = emailTemplates[templateName];
@@ -288,66 +304,9 @@ export async function sendEmail(to: string, templateName: keyof typeof emailTemp
       return false;
     }
     
-    // Apply template based on expected parameters
-    let subject, html;
-    
-    switch (templateName) {
-      case 'verification':
-      case 'twoFactorAuth':
-        if (data.length >= 2) {
-          const [name, code] = data;
-          const result = template(name, code);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      case 'twoFactorEnabled':
-      case 'welcome':
-      case 'gameGuide':
-        if (data.length >= 1) {
-          const [name] = data;
-          const result = template(name);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      case 'depositConfirmation':
-        if (data.length >= 3) {
-          const [name, amount, reference] = data;
-          const result = template(name, amount, reference);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      case 'withdrawalConfirmation':
-      case 'bankAccountAdded':
-        if (data.length >= 3) {
-          const [name, bankName, accountNumber] = data;
-          const result = template(name, bankName, accountNumber);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      case 'bankAccountRemoved':
-        if (data.length >= 2) {
-          const [name, bankName] = data;
-          const result = template(name, bankName);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      case 'cardAdded':
-        if (data.length >= 3) {
-          const [name, cardType, last4] = data;
-          const result = template(name, cardType, last4);
-          subject = result.subject;
-          html = result.html;
-        }
-        break;
-      default:
-        console.error(`Email template handler for ${templateName} not implemented`);
-        return false;
-    }
+    // Call the template function using our helper function
+    const result = applyTemplate(template, data);
+    const { subject, html } = result;
     
     if (!subject || !html) {
       console.error(`Failed to generate email content for template ${templateName}`);

@@ -2,10 +2,15 @@
   "name": "Bottle9jaBet",
   "short_name": "Bottle9ja",
   "description": "Spin the bottle & win big with Bottle9jaBet!",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#1a1a1a",
   "theme_color": "#8B4513",
+  "categories": ["games", "entertainment", "betting"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
