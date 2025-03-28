@@ -197,6 +197,7 @@ export function AuthForm() {
                 id="login-email"
                 type="email"
                 placeholder="your@email.com"
+                className="h-12"
                 {...loginForm.register("email")}
               />
               {loginForm.formState.errors.email && (
@@ -210,6 +211,7 @@ export function AuthForm() {
                 id="login-password"
                 type="password"
                 placeholder="********"
+                className="h-12"
                 {...loginForm.register("password")}
               />
               {loginForm.formState.errors.password && (
@@ -249,6 +251,7 @@ export function AuthForm() {
                 id="register-name"
                 type="text"
                 placeholder="John Doe"
+                className="h-12"
                 {...registerForm.register("fullName")}
               />
               {registerForm.formState.errors.fullName && (
@@ -262,6 +265,7 @@ export function AuthForm() {
                 id="register-username"
                 type="text"
                 placeholder="johndoe"
+                className="h-12"
                 {...registerForm.register("username")}
               />
               {registerForm.formState.errors.username && (
@@ -275,6 +279,7 @@ export function AuthForm() {
                 id="register-email"
                 type="email"
                 placeholder="your@email.com"
+                className="h-12"
                 {...registerForm.register("email")}
               />
               {registerForm.formState.errors.email && (
@@ -288,6 +293,7 @@ export function AuthForm() {
                 id="register-password"
                 type="password"
                 placeholder="********"
+                className="h-12"
                 {...registerForm.register("password")}
               />
               {registerForm.formState.errors.password && (
@@ -301,6 +307,7 @@ export function AuthForm() {
                 id="register-confirm-password"
                 type="password"
                 placeholder="********"
+                className="h-12"
                 {...registerForm.register("confirmPassword")}
               />
               {registerForm.formState.errors.confirmPassword && (

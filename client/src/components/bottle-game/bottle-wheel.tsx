@@ -99,17 +99,28 @@ export function BottleWheel({ onSpinEnd, isSpinning, setIsSpinning }: BottleWhee
       >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          viewBox="0 0 24 24" 
+          viewBox="0 0 100 200" 
           fill="none" 
-          stroke="#FFC107" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
           className="h-full w-full"
         >
-          <path d="M7 5h10a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3Z"></path>
-          <path d="M11 3h2a1 1 0 0 1 1 1v1h-4V4a1 1 0 0 1 1-1Z"></path>
-          <path d="M8 14a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1H8v-1Z"></path>
+          {/* Bottle neck */}
+          <rect x="42" y="10" width="16" height="40" rx="5" fill="#8B4513" stroke="#603813" strokeWidth="2" />
+          
+          {/* Bottle body */}
+          <path d="M35 50 L25 150 C25 170 75 170 75 150 L65 50 Z" fill="#FFE4C4" stroke="#8B4513" strokeWidth="2" />
+          
+          {/* Bottle cap */}
+          <rect x="38" y="5" width="24" height="10" rx="3" fill="#CD7F32" stroke="#8B4513" strokeWidth="2" />
+          
+          {/* Bottle label */}
+          <rect x="30" y="80" width="40" height="50" rx="5" fill="#FFC107" stroke="#8B4513" strokeWidth="1" />
+          
+          {/* Text on bottle */}
+          <text x="50" y="110" textAnchor="middle" fill="#8B4513" fontFamily="Arial" fontSize="10" fontWeight="bold">Bottle</text>
+          <text x="50" y="120" textAnchor="middle" fill="#8B4513" fontFamily="Arial" fontSize="6">9jaBet</text>
+          
+          {/* Bottle shine */}
+          <path d="M35 60 Q45 70 35 80" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="2" />
         </svg>
       </div>
       

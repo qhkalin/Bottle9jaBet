@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { Home, CreditCard, Wallet, History, User, AlertTriangle } from 'lucide-react';
+import { Home, CreditCard, Wallet, History, User, AlertTriangle, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { useSound } from '@/hooks/use-sound';
 
 export function FooterNav() {
@@ -16,6 +16,24 @@ export function FooterNav() {
   
   return (
     <nav className="bg-card fixed bottom-0 w-full shadow-lg z-20">
+      {/* Social Media Links */}
+      <div className="bg-primary/10 py-3 border-t border-muted">
+        <div className="flex justify-center items-center gap-6">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <Facebook size={18} />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <Twitter size={18} />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <Instagram size={18} />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+            <Youtube size={18} />
+          </a>
+        </div>
+      </div>
+      
       {/* Age verification banner */}
       <div className="bg-muted text-center py-1 border-t border-muted">
         <p className="text-xs flex items-center justify-center gap-1 text-muted-foreground">
