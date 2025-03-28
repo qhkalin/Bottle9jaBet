@@ -1,4 +1,4 @@
-import { DepositResponse, Bank, BankAccountDetails } from './types';
+import { DepositResponse, BankType, BankAccountDetails } from './types';
 import { apiRequest } from './queryClient';
 
 // Initialize deposit transaction
@@ -34,7 +34,7 @@ export async function processWithdrawal(amount: number, bankAccountId: number): 
 }
 
 // Get bank list
-export async function getBankList(): Promise<Bank[]> {
+export async function getBankList(): Promise<BankType[]> {
   const res = await apiRequest('GET', '/api/banks');
   return await res.json();
 }

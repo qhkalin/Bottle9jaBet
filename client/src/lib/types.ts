@@ -25,7 +25,7 @@ export type DepositResponse = {
   checkoutUrl: string;
 };
 
-export type Bank = {
+export type BankType = {
   name: string;
   code: string;
 };

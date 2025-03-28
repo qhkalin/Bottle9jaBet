@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Bank, CreditCard, Phone } from 'lucide-react';
+import { Loader2, CreditCard, Phone, Banknote } from 'lucide-react';
 
 interface DepositModalProps {
   isOpen: boolean;
@@ -119,7 +119,7 @@ export function DepositModal({ isOpen, onClose }: DepositModalProps) {
                 }`}
                 onClick={() => handleMethodSelect('ACCOUNT_TRANSFER')}
               >
-                <Bank className="mb-1 h-6 w-6" />
+                <Banknote className="mb-1 h-6 w-6" />
                 <span className="text-xs">Bank Transfer</span>
               </Button>
               
