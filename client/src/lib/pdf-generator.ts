@@ -144,7 +144,26 @@ export async function generateGameGuidePDF() {
   pdf.setTextColor(100, 100, 100);
   pdf.text('© ' + new Date().getFullYear() + ' Bottle9jaBet. All rights reserved.', 105, 270, { align: 'center' });
   
-  return pdf.save('bottle9jabet-game-guide.pdf');
+  // Return the PDF blob if needed, otherwise save automatically
+  if (process.env.NODE_ENV === 'test') {
+    // For testing purposes only, don't trigger downloads
+    return pdf.output('blob');
+  }
+  
+  // Get the PDF as a blob
+  const pdfBlob = pdf.output('blob');
+  
+  // Create a downloadable link to programmatically trigger download
+  const url = URL.createObjectURL(pdfBlob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'bottle9jabet-game-guide.pdf';
+  link.click();
+  
+  // Clean up
+  URL.revokeObjectURL(url);
+  
+  return pdfBlob;
 }
 
 // Function to generate betting history PDF
@@ -182,10 +201,10 @@ export async function generateBettingHistoryPDF(bettingHistory: any[]) {
     columnStyles: {
       4: { 
         halign: 'center',
-        fontStyle: (cell, row) => {
+        fontStyle: (cell: any, row: any) => {
           return cell.raw === 'WIN' ? 'bold' : 'normal';
         },
-        textColor: (cell, row) => {
+        textColor: (cell: any, row: any) => {
           return cell.raw === 'WIN' ? [0, 128, 0] : [255, 0, 0];
         }
       }
@@ -253,13 +272,13 @@ export async function generateTransactionHistoryPDF(transactions: any[]) {
     columnStyles: {
       1: { 
         fontStyle: 'bold',
-        textColor: (cell, row) => {
+        textColor: (cell: any, row: any) => {
           return cell.raw === 'DEPOSIT' ? [0, 128, 0] : (cell.raw === 'WITHDRAWAL' ? [255, 0, 0] : [0, 0, 0]);
         }
       },
       3: {
         fontStyle: 'bold',
-        textColor: (cell, row) => {
+        textColor: (cell: any, row: any) => {
           return cell.raw === 'SUCCESSFUL' ? [0, 128, 0] : (cell.raw === 'FAILED' ? [255, 0, 0] : [255, 165, 0]);
         }
       }
