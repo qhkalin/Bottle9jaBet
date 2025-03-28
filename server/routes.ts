@@ -756,5 +756,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Email API endpoints
+  
+  // Send email with various templates
+  app.post("/api/email/send", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    
+    try {
+      const { to, subject, templateName, data } = req.body;
+      
+      // Basic validation
+      if (!to || !templateName || !data) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      
+      // Security check: Only allow sending to logged-in user's email
+      if (to !== req.user.email) {
+        return res.status(403).json({ message: "Can only send emails to the logged-in user" });
+      }
+      
+      // Send the email
+      const success = await sendEmail(to, templateName, Object.values(data));
+      
+      if (success) {
+        res.status(200).json({ message: "Email sent successfully" });
+      } else {
+        res.status(500).json({ message: "Failed to send email" });
+      }
+    } catch (error) {
+      console.error("Email send error:", error);
+      res.status(500).json({ message: "Failed to send email" });
+    }
+  });
+  
+  // Send Game Guide email
+  app.post("/api/email/send-game-guide", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    
+    try {
+      const userName = req.user.fullName || req.user.username;
+      
+      // Send the email with game guide template
+      const success = await sendEmail(req.user.email, "gameGuide", [userName]);
+      
+      if (success) {
+        res.status(200).json({ message: "Game guide sent successfully" });
+      } else {
+        res.status(500).json({ message: "Failed to send game guide" });
+      }
+    } catch (error) {
+      console.error("Game guide email error:", error);
+      res.status(500).json({ message: "Failed to send game guide" });
+    }
+  });
+  
   return httpServer;
 }
