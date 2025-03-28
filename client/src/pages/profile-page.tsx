@@ -3,6 +3,7 @@ import { useAuth } from '@/hooks/use-auth';
 import Header from '@/components/navigation/header';
 import FooterNav from '@/components/navigation/footer-nav';
 import CardModal from '@/components/modals/card-modal';
+import BankAccountModal from '@/components/modals/bank-account-modal';
 import VerificationModal from '@/components/modals/verification-modal';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -14,7 +15,9 @@ import {
   Loader2,
   Shield,
   Check,
-  X
+  X,
+  Building,
+  Building2
 } from 'lucide-react';
 import {
   Card,
@@ -35,6 +38,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
   const [showCardModal, setShowCardModal] = useState(false);
+  const [showBankAccountModal, setShowBankAccountModal] = useState(false);
   const [show2FAModal, setShow2FAModal] = useState(false);
   const { user, logoutMutation, enable2FAMutation, disable2FAMutation } = useAuth();
   const { toast } = useToast();
@@ -233,21 +237,7 @@ export default function ProfilePage() {
                   
                   <div className="flex justify-between items-center p-4 bg-muted rounded-lg">
                     <div className="flex items-center">
-                      <svg
-                        className="h-6 w-6 mr-3 text-primary"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <rect width="20" height="14" x="2" y="5" rx="2" />
-                        <line x1="2" x2="22" y1="10" y2="10" />
-                      </svg>
+                      <Building2 className="h-6 w-6 mr-3 text-primary" />
                       <div>
                         <h3 className="font-medium">Bank Accounts</h3>
                         <p className="text-sm text-muted-foreground">
@@ -255,7 +245,12 @@ export default function ProfilePage() {
                         </p>
                       </div>
                     </div>
-                    <Button variant="outline">Manage</Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => setShowBankAccountModal(true)}
+                    >
+                      Manage
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -320,6 +315,11 @@ export default function ProfilePage() {
       <CardModal
         isOpen={showCardModal}
         onClose={() => setShowCardModal(false)}
+      />
+      
+      <BankAccountModal
+        isOpen={showBankAccountModal}
+        onClose={() => setShowBankAccountModal(false)}
       />
       
       <VerificationModal
