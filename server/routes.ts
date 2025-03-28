@@ -4,6 +4,9 @@ import { storage } from "./storage";
 import { setupAuth } from "./auth";
 import { WebSocketServer, WebSocket } from "ws";
 import { randomBytes } from "crypto";
+import * as fs from 'fs';
+import * as path from 'path';
+import { generateComprehensiveGameGuidePDF } from './comprehensive-game-guide';
 import { 
   initializeTransaction, 
   verifyTransaction, 
@@ -814,6 +817,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Game guide email error:", error);
       res.status(500).json({ message: "Failed to send game guide" });
+    }
+  });
+  
+  
+  // Generate comprehensive game guide
+  app.get("/api/guides/comprehensive", async (req, res) => {
+    try {
+      // Generate the comprehensive guide PDF
+      const pdfPath = await generateComprehensiveGameGuidePDF();
+      
+      // Send the PDF file as a download
+      res.download(pdfPath, 'bottle9jabet-comprehensive-guide.pdf', (err) => {
+        if (err) {
+          console.error("Error sending comprehensive guide:", err);
+          // Delete the file after sending or if there was an error
+          fs.unlink(pdfPath, (unlinkErr) => {
+            if (unlinkErr) console.error("Error deleting guide file:", unlinkErr);
+          });
+        } else {
+          // Delete the file after sending successfully
+          fs.unlink(pdfPath, (unlinkErr) => {
+            if (unlinkErr) console.error("Error deleting guide file:", unlinkErr);
+          });
+        }
+      });
+    } catch (error) {
+      console.error("Comprehensive guide generation error:", error);
+      res.status(500).json({ message: "Failed to generate comprehensive guide" });
+    }
+  });
+  
+  // Generate guide with screenshots provided by client
+  app.post("/api/guides/with-screenshots", async (req, res) => {
+    try {
+      const { screenshots } = req.body;
+      
+      // Check if screenshots were provided
+      if (!screenshots || Object.keys(screenshots).length === 0) {
+        return res.status(400).json({ message: "No screenshots provided" });
+      }
+      
+      // Here you would process the screenshots and generate a PDF with them
+      // For now, we'll just generate the comprehensive guide
+      const pdfPath = await generateComprehensiveGameGuidePDF();
+      
+      // Send the file URL instead of the file itself
+      const fileName = path.basename(pdfPath);
+      const fileUrl = `/guides/${fileName}`;
+      
+      res.status(200).json({ 
+        message: "Guide with screenshots generated successfully",
+        url: fileUrl
+      });
+    } catch (error) {
+      console.error("Guide with screenshots generation error:", error);
+      res.status(500).json({ message: "Failed to generate guide with screenshots" });
     }
   });
   

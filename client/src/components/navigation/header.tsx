@@ -18,14 +18,17 @@ import {
   History, 
   Lock,
   Volume2,
-  VolumeX
+  VolumeX,
+  BookOpen
 } from 'lucide-react';
+import { GuideDownloadModal } from '@/components/modals/guide-download-modal';
 
 export function Header() {
   const [, setLocation] = useLocation();
   const { user, logoutMutation } = useAuth();
   const { isEnabled, toggleSound, volume, setVolume } = useSound();
   const [showVolumeControl, setShowVolumeControl] = useState(false);
+  const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -96,6 +99,16 @@ export function Header() {
             )}
           </div>
           
+          <Button 
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsGuideModalOpen(true)}
+            className="rounded-full text-secondary hover:text-secondary"
+            title="Game Guide"
+          >
+            <BookOpen size={18} />
+          </Button>
+          
           <Link to="/deposit">
             <Button className="p-2 bg-primary rounded-full">
               <CreditCard size={18} />
@@ -156,6 +169,12 @@ export function Header() {
           </DropdownMenu>
         </div>
       </div>
+      
+      {/* Game Guide Modal */}
+      <GuideDownloadModal 
+        isOpen={isGuideModalOpen}
+        onClose={() => setIsGuideModalOpen(false)}
+      />
     </header>
   );
 }
