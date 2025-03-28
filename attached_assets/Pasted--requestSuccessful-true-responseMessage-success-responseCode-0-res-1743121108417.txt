@@ -1,0 +1,186 @@
+{
+    "requestSuccessful": true,
+    "responseMessage": "success",
+    "responseCode": "0",
+    "responseBody": {
+        "content": [
+            {
+                "walletName": "Smart Wallet - 123",
+                "walletReference": "sgsjsjshsishs",
+                "customerName": "Test01-Smart Mek",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "2611645927",
+                "accountName": "Test01-Smart Mek",
+                "topUpAccountDetails": {
+                    "accountNumber": "4999857145",
+                    "accountName": "Test01-Smart Mek",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Benj-Wallet-123",
+                "walletReference": "Wal232323",
+                "customerName": "Test01-Benji",
+                "customerEmail": "benji@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "4445668698",
+                "accountName": "Test01-Benji",
+                "topUpAccountDetails": {
+                    "accountNumber": "2349242677",
+                    "accountName": "Test01-Benji",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref1684248425966",
+                "walletReference": "ref1684248425966",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "9318673649",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "9373335565",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref1684248425966",
+                "walletReference": "ref16842x48425966",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "6389487462",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "3141756258",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref1703147389707",
+                "walletReference": "ref1703147389707",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "7728149563",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "5365119912",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref1703147486611",
+                "walletReference": "ref1703147486611",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "3892823488",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "6427372829",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref1703147617449",
+                "walletReference": "ref1703147617449",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "22445912580",
+                    "bvnDateOfBirth": "2001-10-06"
+                },
+                "accountNumber": "4823894483",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "3346545623",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            },
+            {
+                "walletName": "Staging Wallet - ref16804248425966",
+                "walletReference": "ref16842048425966",
+                "customerName": "Test01-John Doe",
+                "customerEmail": "test@moniepoint.com",
+                "feeBearer": "SELF",
+                "bvnDetails": {
+                    "bvn": "21212121212",
+                    "bvnDateOfBirth": "1997-04-08"
+                },
+                "accountNumber": "1345947817",
+                "accountName": "Test01-John Doe",
+                "topUpAccountDetails": {
+                    "accountNumber": "6356312549",
+                    "accountName": "Test01-John Doe",
+                    "bankCode": "001",
+                    "bankName": "Monnify Test Bank"
+                }
+            }
+        ],
+        "pageable": {
+            "sort": {
+                "sorted": true,
+                "unsorted": false,
+                "empty": false
+            },
+            "pageSize": 10,
+            "pageNumber": 0,
+            "offset": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "last": true,
+        "totalElements": 8,
+        "totalPages": 1,
+        "sort": {
+            "sorted": true,
+            "unsorted": false,
+            "empty": false
+        },
+        "first": true,
+        "numberOfElements": 8,
+        "size": 10,
+        "number": 0,
+        "empty": false
+    }
+}
