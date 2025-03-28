@@ -20,6 +20,8 @@ export function LiveFeed() {
   const { data, isLoading } = useQuery<LiveFeedItem[]>({
     queryKey: ['/api/bets/live-feed'],
     refetchInterval: 10000, // Refresh every 10 seconds
+    staleTime: 0, // Always consider data stale to ensure fresh fetches
+    refetchOnWindowFocus: true, // Refresh when tab becomes active
     initialData: mockBettingData, // Use mock data initially
   });
   
@@ -109,7 +111,17 @@ export function LiveFeed() {
   // Initialize feed with data from API and set up auto-scroll
   useEffect(() => {
     if (data) {
-      setFeedItems(data);
+      // Keep existing data and append new data without clearing
+      // This ensures the feed is persistent across game rounds
+      setFeedItems(prevItems => {
+        const combinedItems = [...data, ...prevItems];
+        // Remove duplicates based on timestamp to avoid showing the same bet twice
+        const uniqueItems = combinedItems.filter((item, index, self) => 
+          index === self.findIndex(i => i.timestamp === item.timestamp && i.username === item.username)
+        );
+        // Limit to 50 items to prevent excessive memory usage
+        return uniqueItems.slice(0, 50);
+      });
     }
     
     // Set up auto-scrolling

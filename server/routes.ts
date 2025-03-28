@@ -347,7 +347,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Convert amount to kobo (Monnify accepts amount in the smallest currency unit)
-      const amountInKobo = Math.round(parseFloat(amount) * 100);
+      // Use parseFloat to ensure we get the exact amount the user entered
+      const exactAmount = parseFloat(amount);
+      const amountInKobo = Math.round(exactAmount * 100);
       
       // Initialize transaction with Monnify
       const paymentMethods = paymentMethod ? [paymentMethod] : ["CARD", "ACCOUNT_TRANSFER", "USSD"];
@@ -714,13 +716,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Get live feed (recent bets)
   app.get("/api/bets/live-feed", async (req, res) => {
     try {
-      const recentBets = await storage.getRecentBettingHistory(8);
+      // Get a larger number of recent bets to ensure more persistent feed data
+      const recentBets = await storage.getRecentBettingHistory(20);
       
       // Format the data for display
       const liveFeed = recentBets.map(bet => ({
         username: `UserXXXX${bet.userId.toString().padStart(4, '0')}`,
         betAmount: bet.betAmount / 100, // Convert kobo to naira
-        winAmount: bet.isWin ? bet.winAmount / 100 : 0, // Convert kobo to naira
+        winAmount: bet.isWin && bet.winAmount ? bet.winAmount / 100 : 0, // Convert kobo to naira
         isWin: bet.isWin,
         timestamp: bet.createdAt
       }));
