@@ -218,6 +218,12 @@ export function setupAuth(app: Express) {
       // Update user as verified
       await storage.updateUser(userId, { isEmailVerified: true });
       
+      // Send welcome email with game guide
+      await sendEmail(user.email, "welcome", [user.fullName]);
+      
+      // Also send the game guide email
+      await sendEmail(user.email, "gameGuide", [user.fullName]);
+      
       // Log user in
       const { password: _, ...userWithoutPassword } = user;
       req.login(userWithoutPassword, (err) => {

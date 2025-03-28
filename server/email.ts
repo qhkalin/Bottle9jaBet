@@ -1,4 +1,9 @@
 import nodemailer from "nodemailer";
+import fs from 'fs';
+import { promisify } from 'util';
+import { generateGameGuidePDF } from './pdf-generator';
+
+const unlinkAsync = promisify(fs.unlink);
 
 // Set up nodemailer transporter with Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -275,7 +280,7 @@ const emailTemplates = {
   }),
 };
 
-export async function sendEmail(to: string, templateName: keyof typeof emailTemplates, data: any): Promise<boolean> {
+export async function sendEmail(to: string, templateName: keyof typeof emailTemplates, data: any[]): Promise<boolean> {
   try {
     const template = emailTemplates[templateName];
     if (!template) {
@@ -285,12 +290,43 @@ export async function sendEmail(to: string, templateName: keyof typeof emailTemp
     
     const { subject, html } = template(...data);
     
-    await transporter.sendMail({
+    // Basic email configuration
+    const mailOptions: any = {
       from: `"${SENDER_NAME}" <${SENDER_EMAIL}>`,
       to,
       subject,
       html
-    });
+    };
+    
+    // If this is a game guide email, attach the PDF
+    if (templateName === 'gameGuide' || templateName === 'welcome') {
+      try {
+        // Generate the PDF
+        const pdfPath = await generateGameGuidePDF();
+        
+        // Add attachment to email
+        mailOptions.attachments = [
+          {
+            filename: 'bottle9jabet-game-guide.pdf',
+            path: pdfPath,
+            contentType: 'application/pdf'
+          }
+        ];
+        
+        // Send email with attachment
+        await transporter.sendMail(mailOptions);
+        
+        // Delete temporary file after sending
+        await unlinkAsync(pdfPath);
+      } catch (pdfError) {
+        console.error('Error attaching PDF to email:', pdfError);
+        // Still send the email even if PDF attachment fails
+        await transporter.sendMail(mailOptions);
+      }
+    } else {
+      // Send regular email without attachment
+      await transporter.sendMail(mailOptions);
+    }
     
     return true;
   } catch (error) {
