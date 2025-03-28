@@ -288,7 +288,71 @@ export async function sendEmail(to: string, templateName: keyof typeof emailTemp
       return false;
     }
     
-    const { subject, html } = template(...data);
+    // Apply template based on expected parameters
+    let subject, html;
+    
+    switch (templateName) {
+      case 'verification':
+      case 'twoFactorAuth':
+        if (data.length >= 2) {
+          const [name, code] = data;
+          const result = template(name, code);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      case 'twoFactorEnabled':
+      case 'welcome':
+      case 'gameGuide':
+        if (data.length >= 1) {
+          const [name] = data;
+          const result = template(name);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      case 'depositConfirmation':
+        if (data.length >= 3) {
+          const [name, amount, reference] = data;
+          const result = template(name, amount, reference);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      case 'withdrawalConfirmation':
+      case 'bankAccountAdded':
+        if (data.length >= 3) {
+          const [name, bankName, accountNumber] = data;
+          const result = template(name, bankName, accountNumber);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      case 'bankAccountRemoved':
+        if (data.length >= 2) {
+          const [name, bankName] = data;
+          const result = template(name, bankName);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      case 'cardAdded':
+        if (data.length >= 3) {
+          const [name, cardType, last4] = data;
+          const result = template(name, cardType, last4);
+          subject = result.subject;
+          html = result.html;
+        }
+        break;
+      default:
+        console.error(`Email template handler for ${templateName} not implemented`);
+        return false;
+    }
+    
+    if (!subject || !html) {
+      console.error(`Failed to generate email content for template ${templateName}`);
+      return false;
+    }
     
     // Basic email configuration
     const mailOptions: any = {
